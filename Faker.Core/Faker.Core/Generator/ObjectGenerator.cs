@@ -92,7 +92,7 @@ public class ObjectGenerator : IGenerator
             .Where(m =>
                 (m.MemberType.Equals(MemberTypes.Field) ||
                  m.MemberType.Equals(MemberTypes.Property)) &&
-                GetMemberValue(m, instance).Equals(GetDefaultValue(m)));
+                GetMemberValue(m, instance).Equals(GetDefaultValue(m.DeclaringType!)));
     }
 
     private static object GetMemberValue(MemberInfo memberInfo, object value)
@@ -110,8 +110,8 @@ public class ObjectGenerator : IGenerator
             ((PropertyInfo)memberInfo).SetValue(value, _faker.Create(value.GetType()));
     }
 
-    private static object? GetDefaultValue(MemberInfo memberInfo)
+    public static object? GetDefaultValue(Type type)
     {
-        return memberInfo.DeclaringType!.IsValueType ? Activator.CreateInstance(memberInfo.DeclaringType) : null;
+        return type.IsValueType ? Activator.CreateInstance(type) : null;
     }
 }
