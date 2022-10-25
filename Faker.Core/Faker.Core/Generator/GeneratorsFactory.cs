@@ -2,6 +2,9 @@
 
 public class GeneratorsFactory
 {
+    private readonly IGenerator _objectGenerator;
+    private readonly Dictionary<Type, IGenerator> _generators;
+
     public GeneratorsFactory(IFaker faker)
     {
         _objectGenerator = new ObjectGenerator(faker);
@@ -20,9 +23,6 @@ public class GeneratorsFactory
             { typeof(List<>), new ListGenerator(faker)}
         };
     }
-
-    private readonly IGenerator _objectGenerator;
-    private readonly Dictionary<Type, IGenerator> _generators;
 
     public IGenerator GetGenerator(Type type)
     {
