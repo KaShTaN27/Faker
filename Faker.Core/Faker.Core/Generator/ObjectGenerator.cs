@@ -88,7 +88,7 @@ public class ObjectGenerator : IGenerator
 
     private static IEnumerable<MemberInfo> GetUninitializedMembers(object instance)
     {
-        return instance.GetType().GetMembers()
+        return instance.GetType().GetMembers(BindingFlags.Public | BindingFlags.Instance)
             .Where(m =>
                 (m.MemberType.Equals(MemberTypes.Field) ||
                  m.MemberType.Equals(MemberTypes.Property)) &&
