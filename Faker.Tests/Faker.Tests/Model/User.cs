@@ -2,6 +2,7 @@
 
 public class User
 {
+    public static int MinAge = 18;
     public bool IsBlocked;
     public double Balance;
     public double Salary;
